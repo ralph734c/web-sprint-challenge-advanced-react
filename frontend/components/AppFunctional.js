@@ -13,20 +13,26 @@ const initialIndex = 4; // the index the "B" is at
 export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
+  const bArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const [message, setMessage] = useState(initialMessage);
   const [email, setEmail] = useState(initialEmail);
   const [steps, setSteps] = useState(initialSteps);
   const [userIndex, setUserIndex] = useState(initialIndex);
 
-  function getXY() {
+  function getXY(idx) {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
+    const row = Math.floor(idx / 3) + 1;
+    const col = (idx % 3) + 1;
+    return { row, col };
   }
 
   function getXYMessage() {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
+    const { row, col } = getXY(userIndex);
+    return `Coordinates (${col}, ${row})`;
   }
 
   function reset() {
@@ -63,13 +69,16 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
+        <h3 id="coordinates">{getXYMessage(userIndex)}</h3>
         <h3 id="steps">{`You moved ${steps} times`}</h3>
       </div>
       <div id="grid">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
-          <div key={idx} className={`square${idx === 4 ? " active" : ""}`}>
-            {idx === 4 ? "B" : null}
+          <div
+            key={idx}
+            className={`square${idx === userIndex ? " active" : ""}`}
+          >
+            {idx === userIndex ? "B" : null}
           </div>
         ))}
       </div>
