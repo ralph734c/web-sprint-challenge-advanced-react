@@ -40,19 +40,23 @@ export default function AppFunctional(props) {
     if (direction === "left") {
       if (userIndex % 3 !== 0) {
         nextIndex = userIndex - 1;
-      } setMessage("You can't go left")
+      }
+      setMessage("You can't go left");
     } else if (direction === "up") {
       if (userIndex >= 3) {
         nextIndex = userIndex - 3;
-      } setMessage("You can't go up")
+      }
+      setMessage("You can't go up");
     } else if (direction === "right") {
       if ((userIndex + 1) % 3 !== 0) {
         nextIndex = userIndex + 1;
-      } setMessage("You can't go right")
+      }
+      setMessage("You can't go right");
     } else if (direction === "down") {
       if (userIndex < 6) {
         nextIndex = userIndex + 3;
-      } setMessage("You can't go down")
+      }
+      setMessage("You can't go down");
     }
 
     return nextIndex;
@@ -87,8 +91,11 @@ export default function AppFunctional(props) {
       .post(apiUrl, apiRequestObj)
       .then((res) => {
         setMessage(res.data.message);
+        setEmail(initialEmail);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
   }
 
   return (
