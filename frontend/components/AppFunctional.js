@@ -99,9 +99,9 @@ export default function AppFunctional(props) {
   }
 
   return (
-    <div id="wrapper" className={props.className}>
+    <div data-testid="wrapper" id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">{getXYMessage(userIndex)}</h3>
+        <h3 data-testid="coordinates" id="coordinates">{getXYMessage(userIndex)}</h3>
         <h3 id="steps">{`You moved ${steps} time${steps === 1 ? "" : "s"}`}</h3>
       </div>
       <div id="grid">
@@ -115,7 +115,7 @@ export default function AppFunctional(props) {
         ))}
       </div>
       <div className="info">
-        <h3 id="message">{message}</h3>
+        <h3 data-testid="message" id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button onClick={move} id="left">
